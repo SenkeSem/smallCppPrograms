@@ -11,7 +11,7 @@ int main ()
 	cout << "Enter the number of years on Jupiter: ";
 	cin >> jupiterYears;
 
-	earthYears = jupiterYears / 12;
+	earthYears = jupiterYears * 12;
 	cout << "Number of Earth years: " << earthYears;
 
 	return 0;
