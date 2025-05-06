@@ -9,6 +9,7 @@ class Set {
 	
 public:
 	Set() { len = 0; }
+	sdag
 	int getLenght() { return len; }
 	
 	void showset();
@@ -19,6 +20,10 @@ public:
 	
 	Set operator+ (Set obj);
 	Set operator- (Set obj);
+	
+	Set operator& (Set obj);
+	bool operator> (Set obj);
+	bool operator< (Set obj);
 };
 
 int Set::find(char ch)
@@ -94,11 +99,44 @@ Set Set::operator -(Set obj)
 	return newSet;
 }
 
+Set Set::operator &(Set obj)
+{
+	Set newSet;
+	
+	for(int i = 0; i < obj.len; i++) {
+		if(obj.find(members[i]) != -1)
+			newSet = newSet + members[i];
+	}
+
+	return newSet;
+}
+
+bool Set::operator >(Set obj)
+{
+	int counter = 0;
+	
+	for(int i = 0; i < len; i++) {
+		if(obj.find(members[i]) != -1) counter++;
+	}
+	
+	if((counter < len) && (counter == obj.len)) return true;
+	
+	return false;
+}
+
+bool Set::operator <(Set obj)
+{
+	if(len > obj.len) return false;
+	
+	for(int i = 0; i < len; i++)
+		if(obj.find(members[i]) == -1) return false;
+	
+	return true;
+}
+
 int main()
 {
-	Set a;
-	Set b;
-	Set c;
+	Set a, b, c, d, ad, ac, cd;
 	
 	a = a + 'A';
 	a = a + 'B';
@@ -111,30 +149,58 @@ int main()
 	b = b + 'W';
 	b = b + 'B';
 	b = b + 'C';
-	std::cout << "Set b: ";
-	b.showset();
+	std::cout << "Set b: "; b.showset();
 	
 	c = c + 'A';
 	c = c + 'B';
 	c = c + 'F';
-	std::cout << "Set c: ";
-	c.showset();
+	std::cout << "Set c: "; c.showset();
+	
+	d = d + 'A';
+	d = d + 'B';
+	d = d + 'Z';
+	d = d + 'Y';
+	d = d + 'F';
+	std::cout << "Set d: "; d.showset();
 	
 	a = a + b;
-	std::cout << "Set a after a = a + b: ";
-	a.showset();
+	std::cout << "Set a after a = a + b: "; a.showset();
 	
 	c = c + b;
-	std::cout << "Set c after c = c + b: ";
-	c.showset();
+	std::cout << "Set c after c = c + b: "; c.showset();
 	
 	c = c - a;
-	std::cout << "Set c after c = c - a: ";
-	c.showset();
+	std::cout << "Set c after c = c - a: "; c.showset();
 	
 	b = b - a;
-	std::cout << "Set b after b = b - a: ";
-	b.showset();
+	std::cout << "Set b after b = b - a: "; b.showset();	
+	std::cout << "\n";
 	
+	std::cout << "Set a: "; a.showset();
+	std::cout << "Set b: "; b.showset();	
+	std::cout << "Set c: "; c.showset();	
+	std::cout << "Set d: "; d.showset();
+	
+	ad = a & d;
+	std::cout << "Set ad: "; ad.showset(); // { A B }
+	
+	ac = a & c;
+	std::cout << "Set ac: "; ac.showset(); // { }
+	
+	cd = c & d;
+	std::cout << "Set cd: "; cd.showset(); // { F }
+	
+	if(d > ad) std::cout << "The set d is a superset of ad" << std::endl;
+	if(a > ad) std::cout << "The set a is a superset of ad" << std::endl;
+	
+	if(a > c) std::cout << "The set a is a superset of c" << std::endl;
+	else std::cout << "The set a is not a superset of c" << std::endl;
+	std::cout << "\n";
+	
+	if(c < d) std::cout << "The set c is a subset of d" << std::endl;
+	if(ad < a) std::cout << "The set ad is a subset of a" << std::endl;
+	if(cd < a) std::cout << "The set cd is a subset of a" << std::endl;
+	 else std::cout << "The set cd is not a subset of a" << std::endl;
+ 
 	return 0;
 }
