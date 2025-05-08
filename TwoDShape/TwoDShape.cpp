@@ -2,15 +2,19 @@
 #include <cstring>
 
 class TwoDShape {
-public:
 	double width;
-	double height;
-	
+	double height;	
+public:
 	void showDim() {
 		std::cout
 		<< "Width and height: " << width
 		<< " " << height << std::endl;
 	}
+	
+	double getWidth() { return width; }
+	double getHeight() { return height; }
+	void setWidth(double w) { width = w; }
+	void setHeight(double h) { height = h; }
 };
 
 class Triangle : public TwoDShape {
@@ -18,7 +22,7 @@ public:
 	char style[20];
 	
 	double area() {
-		return width * height / 2;
+		return getWidth() * getHeight() / 2;
 	}
 	
 	void showStyle() {
@@ -31,12 +35,12 @@ int main()
 	Triangle t1;
 	Triangle t2;
 	
-	t1.width = 4.0;
-	t1.height = 4.0;
+	t1.setWidth(4.3);
+	t1.setHeight(4.3);
 	strcpy(t1.style, "isosceles");
 	
-	t2.width = 8.0;
-	t2.height = 12.0;
+	t2.setWidth(8.0);
+	t2.setHeight(12.5);
 	strcpy(t2.style, "right");
 	
 	std::cout << "t1 data: \n";
