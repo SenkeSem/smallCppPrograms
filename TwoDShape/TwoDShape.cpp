@@ -18,8 +18,13 @@ public:
 };
 
 class Triangle : public TwoDShape {
-public:
 	char style[20];
+public:
+	Triangle(const char *str, double w, double h) {
+		setWidth(w);
+		setHeight(h);
+		strcpy(style, str);
+	}
 	
 	double area() {
 		return getWidth() * getHeight() / 2;
@@ -32,17 +37,10 @@ public:
 
 int main()
 {
-	Triangle t1;
-	Triangle t2;
-	
-	t1.setWidth(4.3);
-	t1.setHeight(4.3);
-	strcpy(t1.style, "isosceles");
-	
-	t2.setWidth(8.0);
-	t2.setHeight(12.5);
-	strcpy(t2.style, "right");
-	
+	Triangle t1("isosceles", 4.3, 4.3);
+	Triangle t2("right", 8.0, 12.0);
+	Triangle t3("isosceles", 7.6, 7.6);
+
 	std::cout << "t1 data: \n";
 	t1.showDim();
 	t1.showStyle();
@@ -53,6 +51,12 @@ int main()
 	t2.showDim();
 	t2.showStyle();
 	std::cout << "The area is equal to " << t2.area() << std::endl;
+	std::cout << "\n";
 	
+	std::cout << "t3 data: \n";
+	t3.showDim();
+	t3.showStyle();
+	std::cout << "The area is equal to " << t3.area() << std::endl;
+	std::cout << "\n";
 	return 0;
 }
