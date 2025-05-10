@@ -5,6 +5,19 @@ class TwoDShape {
 	double width;
 	double height;	
 public:
+	TwoDShape() {
+		width = height = 0;
+	}
+	
+	TwoDShape(double w, double h) {
+		width = w;
+		height = h;
+	}
+	
+	TwoDShape(double x) {
+		width = height = x;
+	}
+
 	void showDim() {
 		std::cout
 		<< "Width and height: " << width
@@ -20,9 +33,15 @@ public:
 class Triangle : public TwoDShape {
 	char style[20];
 public:
-	Triangle(const char *str, double w, double h) {
-		setWidth(w);
-		setHeight(h);
+	Triangle() {
+		strcpy(style, "unknown");
+	}
+	
+	Triangle(double x) : TwoDShape(x) {
+		strcpy(style, "isosceles");
+	}
+
+	Triangle(const char *str, double w, double h) : TwoDShape(w, h) {
 		strcpy(style, str);
 	}
 	
@@ -37,9 +56,11 @@ public:
 
 int main()
 {
-	Triangle t1("isosceles", 4.3, 4.3);
+	Triangle t1;
 	Triangle t2("right", 8.0, 12.0);
-	Triangle t3("isosceles", 7.6, 7.6);
+	Triangle t3(7.6);
+	
+	t1 = t2;
 
 	std::cout << "t1 data: \n";
 	t1.showDim();
