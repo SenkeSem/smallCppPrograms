@@ -36,6 +36,16 @@ public:
 	}
 };
 
+class Sample {
+	int id;
+public:
+	Sample() { id = 0;}
+	Sample(int x) { id = x; }
+	void show() {
+		std::cout << id << " ";
+	}
+};
+
 int main()
 {
 	Queue<int> iQa(10), iQb(10);
@@ -91,6 +101,19 @@ int main()
 	for(int i = 0; i < 6; i++)
 		std::cout << cQa.get() << " ";
 	std::cout << std::endl;
+	
+	Sample s1, s2(11), s3(27);
+	
+	Queue<Sample> sQ(10);
+	sQ.put(s1);
+	sQ.put(s2);
+	sQ.put(s3);
+	
+	std::cout << "sQ contents: ";
+	for(int i = 0; i < 3; i++) {
+		Sample ob = sQ.get();
+		ob.show();
+	}
 	
 	return 0;
 }
